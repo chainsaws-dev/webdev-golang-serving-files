@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	http.Handle("/pics/", http.StripPrefix("/pics", http.FileServer(http.Dir("./starting-files/public/pics"))))
+	http.Handle("/pics/", http.FileServer(http.Dir("./starting-files/public/")))
 	http.HandleFunc("/", displaytemp)
 
 	http.ListenAndServe(":8080", nil)
