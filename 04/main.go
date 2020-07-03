@@ -21,5 +21,9 @@ func displaytemp(rew http.ResponseWriter, req *http.Request) {
 		log.Fatalln(err)
 	}
 
-	tmp.Execute(rew, nil)
+	err = tmp.Execute(rew, nil)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
