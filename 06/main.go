@@ -27,35 +27,30 @@ func main() {
 }
 
 func mainhandle(res http.ResponseWriter, req *http.Request) {
-	err := tmp.ExecuteTemplate(res, "index.gohtml", nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	errorserve(res, tmp.ExecuteTemplate(res, "index.gohtml", nil))
 }
 
 func abouthandle(res http.ResponseWriter, req *http.Request) {
-	err := tmp.ExecuteTemplate(res, "about.gohtml", nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	errorserve(res, tmp.ExecuteTemplate(res, "about.gohtml", nil))
 }
 
 func applyhandle(res http.ResponseWriter, req *http.Request) {
-	var err error
+
 	if req.Method == http.MethodPost {
-		err = tmp.ExecuteTemplate(res, "applyProcess.gohtml", nil)
+		errorserve(res, tmp.ExecuteTemplate(res, "applyProcess.gohtml", nil))
 	} else if req.Method == http.MethodGet {
-		err = tmp.ExecuteTemplate(res, "apply.gohtml", nil)
+		errorserve(res, tmp.ExecuteTemplate(res, "apply.gohtml", nil))
 	}
 
-	if err != nil {
-		log.Fatalln(err)
-	}
 }
 
 func contacthandle(res http.ResponseWriter, req *http.Request) {
-	err := tmp.ExecuteTemplate(res, "contact.gohtml", nil)
+	errorserve(res, tmp.ExecuteTemplate(res, "contact.gohtml", nil))
+}
+
+func errorserve(res http.ResponseWriter, err error) {
 	if err != nil {
+		http.Error(res, err.Error(), http.StatusInternalServerError)
 		log.Fatalln(err)
 	}
 }
